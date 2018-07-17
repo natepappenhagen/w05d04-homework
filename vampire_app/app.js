@@ -252,13 +252,125 @@ Vampires.create (
 //							  DONE WITH DAY ONE  								//
 
 //----------------------------*Negative Selection*------------------------------//
+//				 *Love ribbons but do not have brown eyes*
+// Vampires.find( { loves: { $in: ['ribbons']}, eye_color: {$not: {$eq: "brown"}}},
+//	 (err, response) => {
+//     console.log(response);
+//     db.close();
+// });
+
+// 								*Are not from Rome*
+// Vampires.find({location: {$not: {$eq: "Rome"}}},
+//	 (err, response) => {
+// 		console.log(response);
+// 		db.close();
+// })
+
+// * Do not love any of the following: [fancy cloaks, frilly shirtsleeves, appearing innocent, being tragic, brooding]*
+// Vampires.find( { loves: { $nin:
+//				 ['fancy cloaks',
+//				  'frilly shirtsleeves',
+//				  'appearing innocent',
+//				  'being tragic',
+//				  'brooding' ]}},
+//		 (err, response) => {
+//    		 console.log(response);
+//    		 db.close();
+// });
+
+//					 * Have not killed more than 200 people*
+// Vampires.find({victims: {$not: {$gt: 200 }}},
+//		 (err, response) => {
+// 			console.log(response);
+// 			db.close();
+// })
+
+
 
 //--------------------------------*REPLACE*-------------------------------------//
 
+// * Replace the vampire called 'Claudia' with a vampire called 'Eve'.
+// 'Eve' will have a key called 'portrayed_by' with the value 'Tilda Swinton'* 	//
+
+// Vampires.findOneAndUpdate({name:"Claudia"}, {$set:{name:"Eve", portrayed_by:"Tilda Swinton"}}, {new:true},
+//		 (err, response)=> {
+// 			console.log(response);
+// 			db.close();
+// })
+
+//		 *Replace the first male vampire with another whose name is 'Guy Man',
+//			 and who has a key 'is_actually' with the value 'were-lizard' *
+
+// Vampires.findOneAndUpdate({gender:"m"}, {$set:{name:"Guy Man", is_actually:"were-lizard"}}, {new:true},
+//		 (err, response)=> {
+// 			console.log(response);
+// 			db.close();
+// })
+
+
 //--------------------------------*UPDATE*--------------------------------------//
+
+// 					* Update 'Guy Man' to have a gender of 'f' **				//
+// Vampires.findOneAndUpdate({name:"Guy Man"}, {$set:{gender:"f"}}, {new:true},
+//		 (err, response) => {
+// 			console.log(response);
+// 				db.close()
+// })
+// 					* Update 'Eve' to have a gender of 'm' *
+// Vampires.findOneAndUpdate({name:"Eve"}, {$set:{gender:"m"}}, {new:true},
+//			 (err, response) => {
+// 			console.log(response);
+// 			db.close()
+// })
+
+// * Update 'Guy Man' to have an array called 'hates' that includes 'clothes' and 'jobs'*
+// Vampires.findOneAndUpdate({name:"Guy Man"}, {$set:{hates:["clothes","jobs"]}}, {new:true},
+//			 (err, response) => {
+// 				console.log(response);
+// 				db.close()
+// })
+
+// * Update 'Guy Man's' hates array also to include 'alarm clocks' and 'jackalopes'*
+// Vampires.findOneAndUpdate({name:"Guy Man"}, {$push:{hates:["clothes","jobs"]}}, {new:true},
+//		 (err, response) => {
+// 			console.log(response);
+// 				db.close()
+// })
+
+// 						* Rename 'Eve's' name field to 'moniker'*
+// Vampires.findOneAndUpdate({name:"Eve"}, {$rename:{"name" : "moniker"}}, {new:true},
+//		 (err, response) => {
+// 			console.log(response);
+// 				db.close()
+// })
+		 // * We now no longer want to categorize female gender as "f", but rather as fems.
+			//  Update all females so that the they are of gender "fems". *
+// Vampires.updateMany({gender:"f"}, {$set:{gender: "fems"}}, {new:true},
+//		 (err, response) => {
+// 			console.log(response);
+// 				db.close()
+// })
+
+
 
 //--------------------------------*REMOVE*--------------------------------------//
 
+//				 *Remove a single document wherein the hair_color is 'brown' *   //
+
+// Vampires.findOneAndRemove(	{hair_color:"brown"},
+//			 (err, response) => {
+// 				console.log(response);
+// 			app.close()
+//	 })
+
+// 		*We found out that the vampires with the blue eyes were just fakes!		//
+// 		Let's remove all the vampires who have blue eyes from our database. *	//
+
+// Vampires.deleteMany(	{eye_color:"blue"},
+//		 (err, response) => {
+// 		console.log(response);
+// 		app.close()
+// 	});
 
 
 
